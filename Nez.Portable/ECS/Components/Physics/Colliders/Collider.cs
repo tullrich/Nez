@@ -362,10 +362,13 @@ namespace Nez
 				if( neighbor.isTrigger )
 					continue;
 
-				if( collidesWith( neighbor, out result ) )
+                CollisionResult outResult = result;
+				if( collidesWith( neighbor, out outResult) )
 				{
-					// hit. back off our motion and our Shape.position
-					motion -= result.minimumTranslationVector;
+                    result = outResult;
+
+                    // hit. back off our motion and our Shape.position
+                    motion -= result.minimumTranslationVector;
 					shape.position -= result.minimumTranslationVector;
 					didCollide = true;
 				}
